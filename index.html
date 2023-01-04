@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        #map {
+            width: 1004px;
+            height: 827px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="data/Artere_1.js"></script>
+        <script src="data/NumereAdministrative_2.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[45.99931399043373,23.663941548784038],[46.00550545917926,23.67476722666687]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        function pop_Artere_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">SIRUTA</th>\
+                        <td>' + (feature.properties['SIRUTA'] !== null ? autolinker.link(feature.properties['SIRUTA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DenLoc</th>\
+                        <td>' + (feature.properties['DenLoc'] !== null ? autolinker.link(feature.properties['DenLoc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DenAct</th>\
+                        <td>' + (feature.properties['DenAct'] !== null ? autolinker.link(feature.properties['DenAct'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DataAct</th>\
+                        <td>' + (feature.properties['DataAct'] !== null ? autolinker.link(feature.properties['DataAct'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TipArtera</th>\
+                        <td>' + (feature.properties['TipArtera'] !== null ? autolinker.link(feature.properties['TipArtera'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Prefix</th>\
+                        <td>' + (feature.properties['Prefix'] !== null ? autolinker.link(feature.properties['Prefix'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TipPers</th>\
+                        <td>' + (feature.properties['TipPers'] !== null ? autolinker.link(feature.properties['TipPers'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Prepozitie</th>\
+                        <td>' + (feature.properties['Prepozitie'] !== null ? autolinker.link(feature.properties['Prepozitie'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DenArtera</th>\
+                        <td>' + (feature.properties['DenArtera'] !== null ? autolinker.link(feature.properties['DenArtera'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sufix</th>\
+                        <td>' + (feature.properties['Sufix'] !== null ? autolinker.link(feature.properties['Sufix'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UAT</th>\
+                        <td>' + (feature.properties['UAT'] !== null ? autolinker.link(feature.properties['UAT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IndexLoc</th>\
+                        <td>' + (feature.properties['IndexLoc'] !== null ? autolinker.link(feature.properties['IndexLoc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IndexNat</th>\
+                        <td>' + (feature.properties['IndexNat'] !== null ? autolinker.link(feature.properties['IndexNat'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IndexEu</th>\
+                        <td>' + (feature.properties['IndexEu'] !== null ? autolinker.link(feature.properties['IndexEu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Eticheta</th>\
+                        <td>' + (feature.properties['Eticheta'] !== null ? autolinker.link(feature.properties['Eticheta'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IdTronson</th>\
+                        <td>' + (feature.properties['IdTronson'] !== null ? autolinker.link(feature.properties['IdTronson'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Artere_1_0(feature) {
+            switch(String(feature.properties['DenArtera'])) {
+                case 'Bălgradului':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(113,180,238,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Bologa':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(38,205,161,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Cimitir':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(48,232,48,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Cocoșel':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(40,223,202,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Complex':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(38,208,214,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Cutului':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(218,147,65,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Doru Șamu':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(108,121,234,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Făgădău':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(105,76,220,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Heiuri 1':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(221,128,147,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Heiuri 2':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(158,107,212,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Heiuri 3':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(200,86,75,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Heiuri 4':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(237,17,127,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Heiuri Scurtă':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(220,26,149,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'În Groapă':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(105,207,135,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'În Sălcii':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(61,201,36,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'La Buican':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(116,146,234,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'La Cumpănă':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(163,201,58,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'La Fântânuță':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(214,151,112,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'La Nănău':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(210,221,121,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'La Ștefăniță':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(38,192,222,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'La Ulieru':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(63,160,204,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'La Veghiu':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(209,62,222,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Labului':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(175,214,121,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Lunca':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(26,217,55,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Mândra':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(211,62,17,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Morii':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(85,232,27,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Ohanea':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(220,41,182,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Orzii':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(134,96,211,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Părăuțului':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(141,40,200,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Plugaru':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(35,217,114,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Podu Moran':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(201,42,98,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Președintelui':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(73,208,152,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Principală':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(16,94,219,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Sub Coastă':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(34,24,217,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Sub Codrișor':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(221,215,27,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Școlii':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(231,211,121,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Tractoriștilor':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(150,215,99,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Trifănești':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(200,57,191,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Ulița Mică':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(208,76,82,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                case 'Zootehniei':
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(231,187,99,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Artere_1',
+                opacity: 1,
+                color: 'rgba(182,88,207,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 7.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Artere_1');
+        map.getPane('pane_Artere_1').style.zIndex = 401;
+        map.getPane('pane_Artere_1').style['mix-blend-mode'] = 'normal';
+        var layer_Artere_1 = new L.geoJson(json_Artere_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Artere_1',
+            layerName: 'layer_Artere_1',
+            pane: 'pane_Artere_1',
+            onEachFeature: pop_Artere_1,
+            style: style_Artere_1_0,
+        });
+        bounds_group.addLayer(layer_Artere_1);
+        map.addLayer(layer_Artere_1);
+        function pop_NumereAdministrative_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Nr_Adm</th>\
+                        <td>' + (feature.properties['Nr_Adm'] !== null ? autolinker.link(feature.properties['Nr_Adm'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Eticheta</th>\
+                        <td>' + (feature.properties['Eticheta'] !== null ? autolinker.link(feature.properties['Eticheta'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NrAdmSufix</th>\
+                        <td>' + (feature.properties['NrAdmSufix'] !== null ? autolinker.link(feature.properties['NrAdmSufix'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TipCladire</th>\
+                        <td>' + (feature.properties['TipCladire'] !== null ? autolinker.link(feature.properties['TipCladire'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IndCladire</th>\
+                        <td>' + (feature.properties['IndCladire'] !== null ? autolinker.link(feature.properties['IndCladire'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">TipScara</th>\
+                        <td>' + (feature.properties['TipScara'] !== null ? autolinker.link(feature.properties['TipScara'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IndScara</th>\
+                        <td>' + (feature.properties['IndScara'] !== null ? autolinker.link(feature.properties['IndScara'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IdTronson</th>\
+                        <td>' + (feature.properties['IdTronson'] !== null ? autolinker.link(feature.properties['IdTronson'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CodPostal</th>\
+                        <td>' + (feature.properties['CodPostal'] !== null ? autolinker.link(feature.properties['CodPostal'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SIRUTA</th>\
+                        <td>' + (feature.properties['SIRUTA'] !== null ? autolinker.link(feature.properties['SIRUTA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">DenLoc</th>\
+                        <td>' + (feature.properties['DenLoc'] !== null ? autolinker.link(feature.properties['DenLoc'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">UAT</th>\
+                        <td>' + (feature.properties['UAT'] !== null ? autolinker.link(feature.properties['UAT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Proprietar</th>\
+                        <td>' + (feature.properties['Proprietar'] !== null ? autolinker.link(feature.properties['Proprietar'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_NumereAdministrative_2_0() {
+            return {
+                pane: 'pane_NumereAdministrative_2',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,243,13,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_NumereAdministrative_2');
+        map.getPane('pane_NumereAdministrative_2').style.zIndex = 402;
+        map.getPane('pane_NumereAdministrative_2').style['mix-blend-mode'] = 'normal';
+        var layer_NumereAdministrative_2 = new L.geoJson(json_NumereAdministrative_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_NumereAdministrative_2',
+            layerName: 'layer_NumereAdministrative_2',
+            pane: 'pane_NumereAdministrative_2',
+            onEachFeature: pop_NumereAdministrative_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_NumereAdministrative_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_NumereAdministrative_2);
+        map.addLayer(layer_NumereAdministrative_2);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        setBounds();
+        var i = 0;
+        layer_Artere_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Eticheta'] !== null?String('<div style="color: #000000; font-size: 12pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Eticheta']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Artere_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_NumereAdministrative_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((exp_label_NumereAdministrative_2_eval_expression(context) !== null?String('<div style="color: #f7ff01; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + exp_label_NumereAdministrative_2_eval_expression(context)) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_NumereAdministrative_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_Artere_1,layer_NumereAdministrative_2]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Artere_1,layer_NumereAdministrative_2]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Artere_1,layer_NumereAdministrative_2]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Artere_1,layer_NumereAdministrative_2]);
+        });
+        </script>
+    </body>
+</html>
